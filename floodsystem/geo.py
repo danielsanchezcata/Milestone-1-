@@ -22,8 +22,6 @@ def stations_within_radius(stations, centre, r):
     return(list_within_r)
 
 
-    return list_within_r.sort()
-
 def rivers_by_station(stations, N):
     from.geo import stations_by_river
     stat_river = stations_by_river(stations)
