@@ -41,7 +41,7 @@ def stations_by_distance (stations, p):
         distance=float(haversine(p,station.coord))
         stations_distances.append((station.name, distance))
         sorted_stations_distances=sorted_by_key(stations_distances,int(1))
-        return sorted_stations_distances
+    return sorted_stations_distances
 
 def rivers_with_station(stations):
     list_rivers=[]
