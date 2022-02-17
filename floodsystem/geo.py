@@ -11,12 +11,11 @@ from . import datafetcher
 from .station import MonitoringStation
 from .utils import sorted_by_key  # noqa
 from .stationdata import build_station_list
-from importlib_metadata import import_module
+#from importlib_metadata import import_module
 from haversine import haversine, Unit
 
 def stations_within_radius(stations, centre, r):
     list_within_r = []
-    #stations = MonitoringStation(coord=(float(e['lat']), float(e['long'])))
     for station in stations:
         distance = haversine(station.coord, centre)
         if distance < r:
