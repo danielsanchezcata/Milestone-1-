@@ -11,10 +11,12 @@ def test_stations_within_radius():
 
 def test_rivers_by_station():
     stations = build_station_list()
-    rivers  = rivers_by_station(stations)
+    N = 9
+    rivers  = rivers_by_station(stations, N)
     for river in rivers:
         assert river[1] >= 0
 
 def test_stations_by_river():
-    stations = stations_by_river()
+    stations = build_station_list()
+    station = stations_by_river(stations)
     assert len(stations) >= 0 
