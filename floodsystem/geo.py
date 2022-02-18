@@ -6,13 +6,12 @@ geographical data.
 
 """
 
-from floodsystem.station import MonitoringStation
 from . import datafetcher
 from .station import MonitoringStation
 from .utils import sorted_by_key  # noqa
 from .stationdata import build_station_list
 #from importlib_metadata import import_module
-from floodsystem.haversine import haversine, Unit
+from .haversine import haversine, Unit
 
 def stations_within_radius(stations, centre, r):
     list_within_r = []
@@ -24,14 +23,19 @@ def stations_within_radius(stations, centre, r):
 
 
 def rivers_by_station(stations, N):
-    from.geo import stations_by_river
-    stat_river = stations_by_river(stations)
-    river_and_number = []
-    for river in stat_river:
-        number = len(stat_river[river])
-        river_and_number.append((river,number))
-    ordered = sorted_by_key(river_and_number,1,reverse=True)
-    return ordered[:N]
+    river_list = []
+    number_list = []
+    for riv in stations:
+        river_list.append(riv.river)
+    for num in river_list:
+        c = river_list.count(num)
+        number_list.append((num, c))
+    number_list = list(dict.fromkeys(number_list))
+    number_list.sort(key=lambda x:x[1], reverse=True)
+    while number_list[N-1][1] == number_list[N][1]:
+        N+=1
+    ordered = number_list[0:N]
+    return ordered
 
 
 def stations_by_distance (stations, p):
