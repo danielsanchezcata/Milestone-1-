@@ -6,11 +6,14 @@ for manipulating/modifying station data
 
 """
 
+from types import NoneType
+
+
 class MonitoringStation:
     """This class represents a river level monitoring station"""
 
     def __init__(self, station_id, measure_id, label, coord, typical_range,
-                 river, town):
+                 river, town, latest_level):
 
         self.station_id = station_id
         self.measure_id = measure_id
@@ -57,3 +60,10 @@ def inconsistent_typical_range_stations(stations):
         else:
             pass
     return inconsistent_stations
+
+def relative_water_self(self):
+    if MonitoringStation.typical_range(self) == False or MonitoringStation.typical_range(self) == type(None):
+        ratio = self.latest_level/self.typical_range_consistent
+        print(self.river, ratio)
+    else:
+        return None
