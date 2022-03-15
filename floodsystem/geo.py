@@ -6,15 +6,15 @@ geographical data.
 
 """
 
-from floodsystem.station import MonitoringStation
 from . import datafetcher
 from .station import MonitoringStation
 from .utils import sorted_by_key  # noqa
-from haversine import haversine
+from .stationdata import build_station_list
+#from importlib_metadata import import_module
+from .haversine import haversine, Unit
 
 def stations_within_radius(stations, centre, r):
     list_within_r = []
-    #stations = MonitoringStation(coord=(float(e['lat']), float(e['long'])))
     for station in stations:
         distance = haversine(station.coord, centre)
         if distance < r:
@@ -23,28 +23,28 @@ def stations_within_radius(stations, centre, r):
 
 
 def rivers_by_station(stations, N):
-    from.geo import stations_by_river
-    stat_river = stations_by_river(stations)
-    river_and_number = []
-    for river in stat_river:
-        number = len(stat_river[river])
-        river_and_number.append((river,number))
-    ordered = sorted_by_key(river_and_number,1,reverse=True)
-    return ordered[:N]
+    river_list = []
+    number_list = []
+    for riv in stations:
+        river_list.append(riv.river)
+    for num in river_list:
+        c = river_list.count(num)
+        number_list.append((num, c))
+    number_list = list(dict.fromkeys(number_list))
+    number_list.sort(key=lambda x:x[1], reverse=True)
+    while number_list[N-1][1] == number_list[N][1]:
+        N+=1
+    ordered = number_list[0:N]
+    return ordered
 
-    
-from importlib_metadata import import_module
-from haversine import haversine, Unit
-from .utils import sorted_by_key  # noqa
-from floodsystem.stationdata import build_station_list
 
 def stations_by_distance (stations, p):
     stations_distances=[]
     for station in stations:
         distance=float(haversine(p,station.coord))
-        stations_distances.append(station.name, distance)
+        stations_distances.append((station.name, distance))
         sorted_stations_distances=sorted_by_key(stations_distances,int(1))
-        return sorted_stations_distances
+    return sorted_stations_distances
 
 def rivers_with_station(stations):
     list_rivers=[]

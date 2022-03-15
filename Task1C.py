@@ -5,9 +5,9 @@ def run():
     stations = build_station_list()
     centre = (52.2053, 0.1218)
     r = 10
-
-    print(stations_within_radius(stations, centre, r))
+    station = stations_within_radius(stations, centre, r )
+    print(station)
 
 if __name__ == "__main__":
     print("*** Task 1C: CUED Part IA Flood Warning System ***")
-    run 
+    run()
