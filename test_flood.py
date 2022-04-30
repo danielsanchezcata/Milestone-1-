@@ -8,5 +8,5 @@ def test_stations_level_over_threshold():
     station = stations_level_over_threshold(stations, tol)
     s_list = []
     for s in range(len(station)):
-        s_list.append(str(station[s][0].name), str(station[s][1]))
+        s_list.append((str(station[s][0].name), str(station[s][1])))
     assert len(s_list) >= 1
