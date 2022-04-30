@@ -1,20 +1,3 @@
-<<<<<<< HEAD
-from . import datafetcher
-from .station import MonitoringStation
-from .utils import sorted_by_key  # noqa
-from .stationdata import build_station_list
-#from importlib_metadata import import_module
-from .haversine import haversine, Unit
-
-def stations_level_over_threshold(stations, tol):
-    for station in stations:
-        if station.relative_water_level > tol:
-            print((station, station.relatiev_water_level))
-        else:
-            pass
-
-    
-=======
 from floodsystem.stationdata import build_station_list
 from floodsystem.station import MonitoringStation, NoneType
 from floodsystem.utils import sorted_by_key
@@ -23,24 +6,38 @@ import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 from floodsystem.datafetcher import fetch_measure_levels
 import numpy as np
+
+def stations_level_over_threshold(stations, tol):
+    station_list = []
+    #update_water_levels(stations)
+    for station in stations:
+        if (type(station.latest_level) == float) and (station.typical_range_consistent() == True):
+        #if MonitoringStation.relative_water_level(station) > tol:
+            if (station.relative_water_level() > tol):
+                station_list.append((station, station.relative_water_level()))
+        #else:
+            #pass
+    return (sorted_by_key(station_list, 1, reverse=True))
+
  
 #Plan for Task 2C
 def stations_high_rel_level(stations,N):
+    NoneType= type(None)
     """calculates relative water level compared to its typical range, returns 'N' highest"""
     relative_levels=[]
     #creates an empty list
     update_water_levels(stations)
     for station in stations:
-        if station.typical_range != None and station.typical_range_consistent and station.latest_level !=None :
+        if station.typical_range != None and station.typical_range_consistent and station.latest_level != None :
             #only counts stations with consistent data
             relative_level=station.latest_level-station.typical_range[1]
             #finds difference between current station level and typical upper range
-            relative_levels.append((station,relative_level))
+            relative_levels.append((station, relative_level))
             #adds station and its relative level as a tuple to a list
-    sorted_relative_levels= sorted_by_key(relative_levels, int(1),reverse=True)
-    #sorts list based on relative level, in reverse (to make list descending)
-    station_only=[]
-    #creates empty list for just stations
+            sorted_relative_levels= sorted_by_key(relative_levels, int(1),reverse=True)
+            #sorts list based on relative level, in reverse (to make list descending)
+            station_only=[]
+            #creates empty list for just stations
     for tuple in sorted_relative_levels[0:N]:
         #iterates over first 'N' tuples in list of (station,relative level)
         station_only.append(tuple[0])
@@ -118,4 +115,3 @@ def highest_risk(stations,dt=3,N=10,y=3):
     #adds N tuples of sorted list to a new list
     print("This prediction is based on data over the past {} days, predicting {}days into the future".format(dt,y))
     return shortened_list
->>>>>>> 7490f15ac3eeff41c46ca06266a77eb8164086cc
