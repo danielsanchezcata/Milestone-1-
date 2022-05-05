@@ -21,5 +21,5 @@ def test_stations_highest_rel_level():
 
 def test_high_risk():
     stations=build_station_list()
-    x=1
-    assert len(high_risk(stations, x, dt=1)) == 1
+    x=0
+    assert len(high_risk(stations, x, dt=1)) == 0
