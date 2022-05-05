@@ -18,8 +18,3 @@ def test_stations_highest_rel_level():
         relative_level=s.latest_level-s.typical_range[1]
         s_list.append((s.name, relative_level))
     assert len(s_list) >= 0
-
-def test_high_risk():
-    stations=build_station_list()
-    x=0
-    assert len(high_risk(stations, x, dt=1)) == 0
