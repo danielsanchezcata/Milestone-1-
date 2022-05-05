@@ -1,18 +1,18 @@
-from floodsystem.flood import high_risk, stations_high_rel_level
+from floodsystem.flood import high_risk, stations_high_rel_level, stations_level_over_threshold
 from floodsystem.stationdata import build_station_list
-from floodsystem.datafetcher import fetch_measure_levels
 from floodsystem.station import MonitoringStation
-import datetime
 #from datetime import datetime, timedelta
  
 def run():
     stations= build_station_list()
     tol = 0.8
-    #stat=stations_high_rel_level(stations, 30)
+    stat_list= []
+    x=10
    # dt=3
     #for station in stations:
    #dates, levels =fetch_measure_levels(station.measure_id, dt=datetime.timedelta(days=dt))
-    print(high_risk(stations, tol, dt = 3))
+    #stat = stations_level_over_threshold(stations, tol)
+    print(high_risk(stations, x, dt=1))
 
     
     
