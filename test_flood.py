@@ -1,4 +1,4 @@
-from floodsystem.flood import stations_level_over_threshold, stations_high_rel_level
+from floodsystem.flood import stations_level_over_threshold, stations_high_rel_level, high_risk
 from floodsystem.stationdata import build_station_list, update_water_levels
 
 def test_stations_level_over_threshold():
@@ -18,3 +18,8 @@ def test_stations_highest_rel_level():
         relative_level=s.latest_level-s.typical_range[1]
         s_list.append((s.name, relative_level))
     assert len(s_list) >= 0
+
+def test_high_risk():
+    stations=build_station_list()
+    x=1
+    assert len(high_risk(stations, x, dt=1)) == 1
