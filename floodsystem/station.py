@@ -57,7 +57,7 @@ class MonitoringStation:
         elif self.latest_level  == None:
             return None
         else:
-            ratio = self.latest_level/self.typical_range[1]
+            ratio = (self.latest_level-self.typical_range[0])/(self.typical_range[1] - self.typical_range[0])
             return ratio
 
 

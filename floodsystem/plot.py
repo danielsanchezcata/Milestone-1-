@@ -8,9 +8,8 @@ from .analysis import polyfit
 import numpy as np
 
 def plot_water_levels(station, dates, levels):
-    t = dates
     level = levels
-    plt.plot(t, level)
+    plt.plot(dates, level)
     plt.xlabel('date')
     plt.ylabel('water level (m)')
     plt.xticks(rotation=45);

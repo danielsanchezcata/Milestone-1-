@@ -17,7 +17,6 @@ def run():
     for station in s:
         #iterates over each station and plots a graph using dates+levels for each one
         dates, levels =fetch_measure_levels(station.measure_id, dt=datetime.timedelta(days=dt))
-        #levels = fetch_measure_levels(dt=datetime.timedelta(days=dt))
         plot_water_level_with_fit(station, dates, levels, p)
 
 if __name__ == "__main__":
